@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}服务跟踪{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>服务执行跟踪</h2>
+    <table>
+        <thead><tr><th>编号</th><th>类型</th><th>进度</th><th>状态</th><th>操作</th></tr></thead>
+        <tbody>
+            {% for service in services %}
+            <tr>
+                <td>{{ service.request_no }}</td>
+                <td>{{ service.service_type }}</td>
+                <td>{{ service.progress }}</td>
+                <td>{{ service.status }}</td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="request_id" value="{{ service.id }}">
+                        <textarea name="progress" placeholder="更新进度">{{ service.progress }}</textarea>
+                        <button name="action" value="update">更新进度</button>
+                        <button name="action" value="complete">完成服务</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5">暂无服务</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
+

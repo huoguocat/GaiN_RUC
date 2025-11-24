@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}孵化服务申请{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>孵化服务申请</h2>
+    <form method="post">
+        <label>关联项目
+            <select name="project_id">
+                <option value="">选择项目（可选）</option>
+                {% for project in projects %}
+                <option value="{{ project.id }}">{{ project.name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>服务类型 *
+            <select name="service_type" required>
+                <option value="">请选择</option>
+                <option value="办公场地">办公场地</option>
+                <option value="算力服务">算力服务</option>
+                <option value="投融资对接">投融资对接</option>
+            </select>
+        </label>
+        <label>需求详情 *
+            <textarea name="details" rows="4" required placeholder="填写面积、周期、算力规格或融资金额等信息"></textarea>
+        </label>
+        <button type="submit" class="primary">提交申请</button>
+    </form>
+</section>
+{% endblock %}
+

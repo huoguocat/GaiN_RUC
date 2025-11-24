@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}服务专员工作台{% endblock %}
+{% block content %}
+<section class="grid">
+    <div class="card"><h3>待审核服务</h3><p>{{ pending }}</p></div>
+    <div class="card"><h3>服务跟踪</h3><p>{{ active }}</p></div>
+    <div class="card"><h3>已完成</h3><p>{{ completed }}</p></div>
+</section>
+<section class="card">
+    <h3>操作入口</h3>
+    <div class="actions">
+        <a class="primary" href="{{ url_for('service.review') }}">待审核服务</a>
+        <a href="{{ url_for('service.tracking') }}">服务跟踪</a>
+        <a href="{{ url_for('service.resources') }}">资源管理</a>
+    </div>
+    <ul>
+        {% for notice in notices %}
+        <li>{{ notice }}</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}
+

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}公示管理{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>公示管理</h2>
+    <table>
+        <thead><tr><th>项目</th><th>申报单位</th><th>状态</th><th>操作</th></tr></thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.name }}</td>
+                <td>{{ project.applicant.organization or '—' }}</td>
+                <td>{{ project.status }}</td>
+                <td>
+                    <form method="post" class="inline-form">
+                        <input type="hidden" name="project_id" value="{{ project.id }}">
+                        <button name="action" value="publish">发布公示</button>
+                        <button name="action" value="finalize">正式入库</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4">暂无待公示项目</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
+

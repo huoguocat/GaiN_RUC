@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}服务方案{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>制定服务方案 - {{ service_request.request_no }}</h2>
+    <p>申请详情：{{ service_request.details }}</p>
+    <form method="post">
+        <label>方案配置
+            <textarea name="plan" rows="6" placeholder="例如：大兴科创基地 50㎡ 场地，免租 6 个月">{{ service_request.progress }}</textarea>
+        </label>
+        <button class="primary" type="submit">提交方案</button>
+    </form>
+</section>
+{% endblock %}
+

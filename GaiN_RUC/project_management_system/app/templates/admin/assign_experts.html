@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}专家分配{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>待分配项目</h2>
+    <form method="post">
+        <label>选择项目
+            <select name="project_id" required>
+                {% for project in projects %}
+                <option value="{{ project.id }}">{{ project.name }}（{{ project.category }}）</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>专家列表（按住 Ctrl 多选）
+            <select name="expert_ids" multiple size="10" required class="multi-select">
+                {% for expert in experts %}
+                <option value="{{ expert.id }}">{{ expert.name }}｜{{ expert.organization }}｜{{ expert.email }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <button type="submit" class="primary">确认分配</button>
+    </form>
+</section>
+{% endblock %}
+

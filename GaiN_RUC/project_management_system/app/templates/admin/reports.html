@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}数据统计报表{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>统计报表</h2>
+    <p>生成时间：{{ generated_at.strftime('%Y-%m-%d %H:%M') }}</p>
+    <div class="grid">
+        <div>
+            <h3>项目类别统计</h3>
+            <ul>
+                {% for category, count in category_counts.items() %}
+                <li>{{ category }}：{{ count }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <h3>项目状态分布</h3>
+            <ul>
+                {% for status, count in status_counts.items() %}
+                <li>{{ status }}：{{ count }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <p>如需导出，请使用浏览器打印到 PDF 或复制数据到 Excel。</p>
+</section>
+{% endblock %}
+

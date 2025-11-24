@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}我的项目{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>我的项目</h2>
+    <form method="get" class="inline-form">
+        <label>状态筛选
+            <select name="status" onchange="this.form.submit()">
+                <option value="">全部</option>
+                {% for option in ['草稿','申报中','初审通过','待评审','答辩通过','公示中','已入库','驳回'] %}
+                <option value="{{ option }}" {% if status==option %}selected{% endif %}>{{ option }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <a class="primary" href="{{ url_for('applicant.new_project') }}">申报新项目</a>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>申报号</th><th>项目名称</th><th>状态</th><th>提交时间</th><th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.application_no }}</td>
+                <td>{{ project.name }}</td>
+                <td>{{ project.status }}</td>
+                <td>{{ project.created_at.strftime('%Y-%m-%d') }}</td>
+                <td>
+                    <a href="{{ url_for('applicant.project_detail', project_id=project.id) }}">查看</a>
+                    {% if project.status in ['申报中','草稿','驳回'] %}
+                    | <a href="{{ url_for('applicant.edit_project', project_id=project.id) }}">修改</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5">暂无项目</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="actions" style="justify-content: flex-end;">
+        <a href="{{ url_for('applicant.dashboard') }}">返回首页</a>
+    </div>
+</section>
+{% endblock %}
+

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}管理员控制台{% endblock %}
+{% block content %}
+<section class="grid">
+    <div class="card"><h3>申报总数</h3><p>{{ stats.projects }}</p></div>
+    <div class="card"><h3>评审记录</h3><p>{{ stats.reviews }}</p></div>
+    <div class="card"><h3>服务申请</h3><p>{{ stats.services }}</p></div>
+</section>
+<section class="card">
+    <h3>待办任务</h3>
+    <table>
+        <thead><tr><th>申报号</th><th>项目名称</th><th>状态</th></tr></thead>
+        <tbody>
+            {% for project in pending_tasks %}
+            <tr><td>{{ project.application_no }}</td><td>{{ project.name }}</td><td>{{ project.status }}</td></tr>
+            {% else %}
+            <tr><td colspan="3">暂无待办</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="actions">
+        <a href="{{ url_for('admin.initial_review') }}">材料初审</a>
+        <a href="{{ url_for('admin.assign_experts') }}">专家分配</a>
+        <a href="{{ url_for('admin.publication') }}">公示管理</a>
+        <a href="{{ url_for('admin.user_management') }}">用户管理</a>
+        <a href="{{ url_for('admin.reports') }}">统计报表</a>
+    </div>
+</section>
+{% endblock %}
+

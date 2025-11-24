@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}项目详情{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>{{ project.name }}</h2>
+    <p>申报号：{{ project.application_no }}｜状态：{{ project.status }}</p>
+    <h3>项目概述</h3>
+    <p>{{ project.summary }}</p>
+    <h3>知识产权</h3>
+    <p>{{ project.ip_info or '暂无' }}</p>
+    <h3>证明材料说明</h3>
+    <p>{{ project.material_notes or '暂无' }}</p>
+    <h3>已上传材料</h3>
+    <ul>
+        {% for material in project.materials.all() %}
+        <li>
+            <a href="{{ url_for('files.download_project_material', material_id=material.id) }}" target="_blank">
+                {{ material.file_name }}
+            </a>
+        </li>
+        {% else %}
+        <li>暂无文件</li>
+        {% endfor %}
+    </ul>
+    <div class="actions">
+        <a href="{{ url_for('applicant.projects') }}">返回列表</a>
+        {% if project.status in ['申报中','草稿','驳回'] %}
+        <a class="primary" href="{{ url_for('applicant.edit_project', project_id=project.id) }}">继续编辑</a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+

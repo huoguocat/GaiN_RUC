@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}资源管理{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>资源状态</h2>
+    <table>
+        <thead><tr><th>资源</th><th>总容量</th><th>已使用</th><th>空闲</th><th>更新</th></tr></thead>
+        <tbody>
+            {% for resource in resources %}
+            <tr>
+                <td>{{ resource.name }}</td>
+                <td>{{ resource.total }}</td>
+                <td>{{ resource.used }}</td>
+                <td>{{ resource.free }}</td>
+                <td>
+                    <form method="post" class="inline-form">
+                        <input type="hidden" name="resource_name" value="{{ resource.name }}">
+                        <input type="number" min="0" max="{{ resource.total }}" name="used" value="{{ resource.used }}">
+                        <button type="submit">更新状态</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
+

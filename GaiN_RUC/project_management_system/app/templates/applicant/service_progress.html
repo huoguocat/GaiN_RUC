@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}服务进度{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>服务进度查询</h2>
+    <table>
+        <thead>
+            <tr><th>申请编号</th><th>服务类型</th><th>状态</th><th>进度</th><th>更新时间</th></tr>
+        </thead>
+        <tbody>
+            {% for service in services %}
+            <tr>
+                <td>{{ service.request_no }}</td>
+                <td>{{ service.service_type }}</td>
+                <td>{{ service.status }}</td>
+                <td>{{ service.progress }}</td>
+                <td>{{ service.updated_at.strftime('%Y-%m-%d') }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5">暂未提交服务申请</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
+

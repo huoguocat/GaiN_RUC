@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}评审任务列表{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>评审任务</h2>
+    <form method="get" class="inline-form">
+        <label>状态
+            <select name="status" onchange="this.form.submit()">
+                <option value="">全部</option>
+                {% for option in ['待确认','待评审','暂存','已提交','答辩完成'] %}
+                <option value="{{ option }}" {% if status==option %}selected{% endif %}>{{ option }}</option>
+                {% endfor %}
+            </select>
+        </label>
+    </form>
+    <table>
+        <thead>
+            <tr><th>项目名称</th><th>技术领域</th><th>状态</th><th>操作</th></tr>
+        </thead>
+        <tbody>
+            {% for review in reviews %}
+            <tr>
+                <td>{{ review.project.name }}</td>
+                <td>{{ review.project.category }}</td>
+                <td>{{ review.status }}</td>
+                <td>
+                    <a href="{{ url_for('expert.review_form', review_id=review.id) }}">开始评审</a>
+                    {% if review.status == '待确认' %}
+                    <form method="post" class="inline-form">
+                        <input type="hidden" name="review_id" value="{{ review.id }}">
+                        <button name="action" value="confirm">确认接收</button>
+                        <input type="text" name="reason" placeholder="调换原因">
+                        <button name="action" value="swap">申请调换</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4">暂无任务</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
+

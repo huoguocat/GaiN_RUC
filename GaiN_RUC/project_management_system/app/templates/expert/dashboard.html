@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}专家工作台{% endblock %}
+{% block content %}
+<section class="grid">
+    <div class="card"><h3>待确认任务</h3><p>{{ pending }} 个</p></div>
+    <div class="card"><h3>待评审项目</h3><p>{{ reviewing }} 个</p></div>
+    <div class="card"><h3>已完成评审</h3><p>{{ completed }} 个</p></div>
+</section>
+<section class="card">
+    <h3>通知中心</h3>
+    <ul>
+        {% for notice in notices %}
+        <li>{{ notice }}</li>
+        {% endfor %}
+    </ul>
+    <div class="actions">
+        <a class="primary" href="{{ url_for('expert.tasks') }}">待评审项目</a>
+        <a href="{{ url_for('expert.history') }}">历史记录</a>
+    </div>
+</section>
+{% endblock %}
+

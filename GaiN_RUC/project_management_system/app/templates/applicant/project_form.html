@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}项目申报表单{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>{{ '编辑项目' if project else '申报新项目' }}</h2>
+    <form method="post" enctype="multipart/form-data">
+        <label>项目类别 *
+            <select name="category" required>
+                {% set current = project.category if project else '' %}
+                <option value="">请选择</option>
+                <option value="科研项目类" {% if current=='科研项目类' %}selected{% endif %}>科研项目类</option>
+                <option value="团队个人类" {% if current=='团队个人类' %}selected{% endif %}>团队个人类</option>
+                <option value="企业技术成果类" {% if current=='企业技术成果类' %}selected{% endif %}>企业技术成果类</option>
+            </select>
+        </label>
+        <label>项目名称 *
+            <input type="text" name="name" required value="{{ project.name if project else '' }}">
+        </label>
+        <label>项目概述 *
+            <textarea name="summary" rows="4" required>{{ project.summary if project else '' }}</textarea>
+        </label>
+        <label>知识产权情况
+            <textarea name="ip_info" rows="3">{{ project.ip_info if project else '' }}</textarea>
+        </label>
+        <label>证明材料说明
+            <textarea name="material_notes" rows="3">{{ project.material_notes if project else '' }}</textarea>
+        </label>
+        <label>上传证明材料（PDF，可多选）
+            <input type="file" name="materials" multiple accept="application/pdf">
+            <small>上传后审核 / 专家即可在线查看。</small>
+        </label>
+        {% if project and project.materials.count() %}
+        <div>
+            <p>已上传材料：</p>
+            <ul>
+                {% for material in project.materials.all() %}
+                <li>
+                    <a href="{{ url_for('files.download_project_material', material_id=material.id) }}" target="_blank">
+                        {{ material.file_name }}
+                    </a>
+                    <form method="post" action="{{ url_for('applicant.delete_material', project_id=project.id, material_id=material.id) }}" class="inline-form">
+                        <button type="submit">删除</button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <div class="form-actions">
+            <button name="action" value="draft" type="submit">暂存草稿</button>
+            <button class="primary" name="action" value="submit" type="submit">提交审核</button>
+        </div>
+    </form>
+</section>
+{% endblock %}
+

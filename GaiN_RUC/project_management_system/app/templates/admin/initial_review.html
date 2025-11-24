@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}材料初审{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>材料初审</h2>
+    <table>
+        <thead><tr><th>申报号</th><th>项目名称</th><th>提交时间</th><th>操作</th></tr></thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.application_no }}</td>
+                <td>
+                    {{ project.name }}
+                    {% if project.materials.count() %}
+                    <div>
+                        <small>证明材料：</small>
+                        <ul>
+                            {% for material in project.materials.all() %}
+                            <li><a href="{{ url_for('files.download_project_material', material_id=material.id) }}" target="_blank">{{ material.file_name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </td>
+                <td>{{ project.created_at.strftime('%Y-%m-%d') }}</td>
+                <td>
+                    <form method="post" class="inline-form">
+                        <input type="hidden" name="project_id" value="{{ project.id }}">
+                        <textarea name="feedback" placeholder="驳回理由"></textarea>
+                        <button name="action" value="approve">通过</button>
+                        <button name="action" value="reject">驳回</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4">暂无待初审项目</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
+

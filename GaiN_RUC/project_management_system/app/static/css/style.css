@@ -1,0 +1,175 @@
+:root {
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #1f2d3d;
+    background: #f5f6fa;
+}
+
+body {
+    margin: 0;
+    background: #f5f6fa;
+}
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1.5rem;
+    background: #16325c;
+    color: #fff;
+}
+
+.top-nav a {
+    color: #fff;
+    margin-left: 1rem;
+    text-decoration: none;
+}
+
+.role-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    margin-right: 0.5rem;
+}
+
+.badge {
+    background: #ff5b57;
+    border-radius: 999px;
+    padding: 0.1rem 0.4rem;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.card {
+    background: #fff;
+    padding: 1.2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(22, 50, 92, 0.08);
+}
+
+.auth-card {
+    max-width: 420px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.16);
+}
+
+form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+input, select, textarea, button {
+    font: inherit;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 1px solid #c5ced7;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: #e5e9f0;
+}
+
+button.primary, a.primary {
+    background: #276ef1;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+}
+
+a {
+    color: #276ef1;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th, td {
+    padding: 0.6rem;
+    border-bottom: 1px solid #edf1f7;
+    text-align: left;
+}
+
+.actions {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.inline-form {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.flash-area {
+    margin-bottom: 1rem;
+}
+
+.flash {
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.flash.success { background: #e3fcec; color: #0f5132; }
+.flash.danger { background: #fde2e1; color: #842029; }
+.flash.warning { background: #fff4e5; color: #7a4100; }
+.flash.info { background: #e7f1ff; color: #0d468b; }
+
+.steps {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.steps span {
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    background: #edf1f7;
+}
+
+.steps .active {
+    background: #276ef1;
+    color: #fff;
+}
+
+.form-actions {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.multi-select {
+    min-height: 220px;
+}
+

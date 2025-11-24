@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}申报人工作台{% endblock %}
+{% block content %}
+<section class="grid">
+    <div class="card">
+        <h3>我的项目</h3>
+        <p>待办：{{ stats.pending }} 个｜已办：{{ stats.completed }} 个</p>
+        <div class="actions">
+            <a class="primary" href="{{ url_for('applicant.new_project') }}">申报新项目</a>
+            <a href="{{ url_for('applicant.projects') }}">查看我的项目</a>
+        </div>
+    </div>
+    <div class="card">
+        <h3>服务入口</h3>
+        <a href="{{ url_for('applicant.apply_service') }}">孵化服务申请</a>
+        <a href="{{ url_for('applicant.service_progress') }}">服务进度查询</a>
+    </div>
+    <div class="card">
+        <h3>通知</h3>
+        <ul>
+            {% for notice in notices %}
+            <li>{{ notice }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+<section class="card">
+    <h3>最新项目</h3>
+    <table>
+        <thead>
+            <tr><th>申报号</th><th>项目名称</th><th>状态</th><th>更新时间</th></tr>
+        </thead>
+        <tbody>
+            {% for proj in projects %}
+            <tr>
+                <td>{{ proj.application_no }}</td>
+                <td>{{ proj.name }}</td>
+                <td>{{ proj.status }}</td>
+                <td>{{ proj.updated_at.strftime('%Y-%m-%d') }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4">暂无项目</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
+

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}用户管理{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>新增用户</h2>
+    <form method="post" class="grid">
+        <input type="hidden" name="action" value="create">
+        <label>角色
+            <select name="role" required>
+                <option value="applicant">申报人</option>
+                <option value="expert">专家</option>
+                <option value="admin">管理员</option>
+                <option value="service_staff">服务专员</option>
+            </select>
+        </label>
+        <label>姓名<input name="name" required></label>
+        <label>邮箱<input type="email" name="email" required></label>
+        <label>单位<input name="organization"></label>
+        <label>手机号<input name="phone"></label>
+        <label>初始密码<input type="text" name="password" value="Welcome#123"></label>
+        <button class="primary" type="submit">创建</button>
+    </form>
+</section>
+<section class="card">
+    <h2>用户列表</h2>
+    <form method="get" class="inline-form">
+        <label>角色
+            <select name="role" onchange="this.form.submit()">
+                <option value="">全部</option>
+                {% for option in ['applicant','expert','admin','service_staff'] %}
+                <option value="{{ option }}" {% if role==option %}selected{% endif %}>{{ roles[option] }}</option>
+                {% endfor %}
+            </select>
+        </label>
+    </form>
+    <table>
+        <thead><tr><th>姓名</th><th>角色</th><th>单位</th><th>状态</th><th>操作</th></tr></thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ roles[user.role] }}</td>
+                <td>{{ user.organization or '—' }}</td>
+                <td>{{ user.status }}</td>
+                <td>
+                    <form method="post" class="inline-form">
+                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                        <button name="action" value="disable">禁用</button>
+                        <button name="action" value="reset">重置密码</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5">暂无用户</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
+

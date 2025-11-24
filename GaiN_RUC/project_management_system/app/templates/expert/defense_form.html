@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}答辩评审{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>{{ review.project.name }} - 答辩评审</h2>
+    <p>答辩时间：请查看任务通知，线上会议链接将提前推送。</p>
+    <form method="post">
+        <label>答辩评分（0-10）
+            <input type="number" min="0" max="10" name="defense_score" value="{{ review.defense_score }}" required>
+        </label>
+        <label>提问记录 / 答辩意见
+            <textarea name="defense_notes" rows="5">{{ review.defense_notes }}</textarea>
+        </label>
+        <button class="primary" type="submit">提交答辩意见</button>
+    </form>
+</section>
+{% endblock %}
+

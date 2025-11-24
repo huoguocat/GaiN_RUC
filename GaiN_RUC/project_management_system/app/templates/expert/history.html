@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}评审历史{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>评审历史</h2>
+    <table>
+        <thead>
+            <tr><th>项目</th><th>提交时间</th><th>综合得分</th><th>意见摘要</th></tr>
+        </thead>
+        <tbody>
+            {% for review in reviews %}
+            <tr>
+                <td>{{ review.project.name }}</td>
+                <td>{{ review.updated_at.strftime('%Y-%m-%d') }}</td>
+                <td>{{ "%.1f"|format(review.overall_score()) }}</td>
+                <td>{{ review.comments[:80] if review.comments else '—' }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4">暂无历史记录</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
+

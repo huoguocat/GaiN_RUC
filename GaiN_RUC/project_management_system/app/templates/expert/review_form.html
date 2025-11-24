@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}项目评审{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>{{ review.project.name }} - 评审表</h2>
+    <p>项目材料：</p>
+    <ul>
+        {% for material in review.project.materials.all() %}
+        <li>
+            <a href="{{ url_for('files.download_project_material', material_id=material.id) }}" target="_blank">
+                {{ material.file_name }}
+            </a>
+        </li>
+        {% else %}
+        <li>暂无上传文件</li>
+        {% endfor %}
+    </ul>
+    <form method="post" class="grid">
+        <label>技术创新性
+            <input type="number" min="0" max="10" name="tech_score" value="{{ review.tech_score }}" required>
+        </label>
+        <label>市场潜力
+            <input type="number" min="0" max="10" name="market_score" value="{{ review.market_score }}" required>
+        </label>
+        <label>验证可行性
+            <input type="number" min="0" max="10" name="feasibility_score" value="{{ review.feasibility_score }}" required>
+        </label>
+        <label>团队能力
+            <input type="number" min="0" max="10" name="team_score" value="{{ review.team_score }}" required>
+        </label>
+        <label class="full-width">评审意见（≥100 字，系统未强制）</label>
+        <textarea name="comments" rows="6">{{ review.comments }}</textarea>
+        <div class="form-actions">
+            <button name="action" value="draft">暂存</button>
+            <button class="primary" name="action" value="submit">提交评审</button>
+        </div>
+    </form>
+</section>
+{% endblock %}
+

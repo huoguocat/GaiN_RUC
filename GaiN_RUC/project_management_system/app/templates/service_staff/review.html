@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}服务审核{% endblock %}
+{% block content %}
+<section class="card">
+    <h2>服务申请审核</h2>
+    <table>
+        <thead><tr><th>编号</th><th>项目</th><th>类型</th><th>状态</th><th>操作</th></tr></thead>
+        <tbody>
+            {% for req in requests %}
+            <tr>
+                <td>{{ req.request_no }}</td>
+                <td>{{ req.project.name if req.project else '非项目关联' }}</td>
+                <td>{{ req.service_type }}</td>
+                <td>{{ req.status }}</td>
+                <td>
+                    <details>
+                        <summary>查看详情</summary>
+                        <p>{{ req.details }}</p>
+                    </details>
+                    <form method="post" class="inline-form">
+                        <input type="hidden" name="request_id" value="{{ req.id }}">
+                        <textarea name="reason" placeholder="驳回理由"></textarea>
+                        <button name="action" value="approve">通过</button>
+                        <button name="action" value="reject">驳回</button>
+                    </form>
+                    <a href="{{ url_for('service.plan', request_id=req.id) }}">制定方案</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5">暂无服务申请</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
+
